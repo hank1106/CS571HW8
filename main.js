@@ -1,4 +1,4 @@
-var app = angular.module('myApp', ['ngRoute']);
+var app = angular.module('myApp', ['ngRoute','ngAnimate']);
 app.controller('myCtrl', function($scope,$http,$location) {
     accesstoken = 'EAAFgkMau1f8BAD02HfQNS9t7E6qp6Mw7WYrplAapbqZCrJ7xFSxpZAtpSahbTbXWxYCcUoohPmISw1diiDZBaaPZCQbxXgcSNLNbersPBBYMsZCmB0HhFz196psfZBKWMDXmGw1Kj7mtqrtiN2hXWW0HZBScPZBXpfkZD'
     $scope.search = function(type) {
@@ -46,5 +46,8 @@ app.controller('myCtrl', function($scope,$http,$location) {
         }, function errorCallback(response) {
             alert("error");
         });
+    };
+    $scope.todetail = function() {
+        $location.path('/detail');
     };
 });

@@ -5,4 +5,7 @@ app.config(['$routeProvider', function($routeProvider) {
     $routeProvider.when('/progressBar', {
       templateUrl: 'progressBar.html'
    });     
+    $routeProvider.when('/detail', {
+      templateUrl: 'detail.html'
+   });     
 }]);
