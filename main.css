@@ -1,0 +1,94 @@
+.navbar-default .navbar-brand
+{
+  color:#3B5998;
+}
+.navbar-default:hover .navbar-brand:hover
+{
+  color:#3B5998;
+}
+.navbar-center
+{
+  text-align: center;
+}
+.blue-button
+{
+  background-color: #3B5998;
+  border-color: #3B5998;
+  border-radius: 0;
+  text-align: left;
+  width:60px;
+}
+.blue-button:
+{
+  background-color: #3B5998;
+  border-color: #3B5998;
+  border-radius: 0;
+  text-align: left;
+  width:60px;
+}
+.blue-button:hover
+{
+  background-color: #3B5998;
+  border-color: #3B5998;
+}
+.blue-button:active
+{
+  background: #3B5998;
+  border-color: #3B5998;
+}
+.blue-button:focus
+{
+  background: #3B5998;
+  border-color: #3B5998;
+}
+.clearbtn
+{
+  background-color: white;
+  border-color: #3B5998;
+  border-radius: 0;
+  text-align: left;
+  width:60px;
+  color:#3B5998;
+  height:34px;
+}
+.clearbtn:hover
+{
+  background-color: white;
+  border-color: #3B5998;
+}
+.secondnav
+{
+  border-style:none;
+  background-color: white;
+  border-bottom: 2px solid #3B5998;
+}
+.tab
+{
+  text-align: center;
+  padding: 0;
+  margin: 0;
+}
+.tab a
+{
+  color:black;
+  margin:0;
+  padding:0;
+}
+.nav > li > a:hover
+{
+  background-color: white;
+}
+.nav > li > a:focus{
+  background-color: #3B5998;
+  text-decoration: none;
+  color:white;
+}
+.pagebutton
+{
+  background-color: white;
+  border-color: grey;
+  border-radius: 1px;
+  text-align: center;
+  width:60px;
+  height:34px;
+}

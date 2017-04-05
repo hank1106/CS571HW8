@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link href="main.css" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script src="angular-route.js"></script>
+  <script src="main.js"></script>
+  <script src="route.js"></script>
+</head>
+<body>
+<div ng-controller="myCtrl">
+  <nav class="navbar navbar-default" style="margin-bottom: 0;">
+    <div class="navbar-header col-md-3">
+      <a class="navbar-brand">FB Search</a>
+    </div>
+    <form class="navbar-form col-md-4">
+      <div class="input-group">
+        <input type="text" class="form-control" ng-model="input" style="width:400px;" placeholder="type something...">
+          <div class="input-group-btn">
+            <button type="button btn-primary" class="btn btn-info blue-button" ng-click="search()">
+              <i class="glyphicon glyphicon-search"></i>
+            </button>
+          </div>
+      </div>
+      <button name="clear" type="submit" class="btn btn-default clearbtn">Clear</button>
+    </form>
+  </nav>
+    <ul class="nav secondnav">
+      <li class="tab col-sm-2"><a href="#">Users</a></li>
+      <li class="tab col-sm-2"><a href="#">Pages</a></li>
+      <li class="tab col-sm-2"><a href="#">Events</a></li>
+      <li class="tab col-sm-2"><a href="#">Places</a></li>
+      <li class="tab col-sm-2"><a href="#">Groups</a></li>
+      <li class="tab col-sm-2"><a href="#">Favorites</a></li>
+    </ul> 
+  <div ng-view></div>
+</div>
+</body>
+</html>
