@@ -62,27 +62,6 @@
   background-color: white;
   border-bottom: 2px solid #3B5998;
 }
-.tab
-{
-  text-align: center;
-  padding: 0;
-  margin: 0;
-}
-.tab a
-{
-  color:black;
-  margin:0;
-  padding:0;
-}
-.nav > li > a:hover
-{
-  background-color: white;
-}
-.nav > li > a:focus{
-  background-color: #3B5998;
-  text-decoration: none;
-  color:white;
-}
 .pagebutton
 {
   background-color: white;
@@ -91,4 +70,9 @@
   text-align: center;
   width:60px;
   height:34px;
+}
+
+.nav-pills > li.active >a,.nav-pills > li.active >a:focus {
+    color: white;
+    background-color: #3B5998;
 }
