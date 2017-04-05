@@ -76,3 +76,10 @@
     color: white;
     background-color: #3B5998;
 }
+
+.progress
+{
+    width: 80%;
+    margin:0 auto;
+    margin-top:150px;
+}

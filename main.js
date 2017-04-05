@@ -2,6 +2,7 @@ var app = angular.module('myApp', ['ngRoute']);
 app.controller('myCtrl', function($scope,$http,$location) {
     accesstoken = 'EAAFgkMau1f8BAD02HfQNS9t7E6qp6Mw7WYrplAapbqZCrJ7xFSxpZAtpSahbTbXWxYCcUoohPmISw1diiDZBaaPZCQbxXgcSNLNbersPBBYMsZCmB0HhFz196psfZBKWMDXmGw1Kj7mtqrtiN2hXWW0HZBScPZBXpfkZD'
     $scope.search = function(type) {
+        $location.path('/progressBar');
         $http({
         	method: 'GET',
         	url: 'https://graph.facebook.com/v2.8/search?q='+$scope.input+'&type='+type+'&fields=id,name,picture.width(700).height(700)&access_token=' + accesstoken
@@ -17,7 +18,8 @@ app.controller('myCtrl', function($scope,$http,$location) {
         });
     };
     $scope.nextpage = function() {
-       $http({
+        $location.path('/progressBar');
+        $http({
             method: 'GET',
             url: $scope.paging
         }).then(function successCallback(response) {
@@ -31,7 +33,8 @@ app.controller('myCtrl', function($scope,$http,$location) {
         });
     };
     $scope.prevpage = function() {
-       $http({
+        $location.path('/progressBar');
+        $http({
             method: 'GET',
             url: $scope.pagingprev
         }).then(function successCallback(response) {
