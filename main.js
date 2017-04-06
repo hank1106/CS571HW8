@@ -50,10 +50,12 @@ app.controller('myCtrl', function($scope,$http,$location) {
     $scope.todetail = function(id) {
         $http({
             method: 'GET',
-            url: 'https://graph.facebook.com/v2.8/'+id+'?fields=%20albums.limit(5){name,photos.limit(2){name,%20picture}},posts.limit(5){message,created_time}&access_token=' + $scope.accesstoken
+            url: 'https://graph.facebook.com/v2.8/'+id+'?fields=%20albums.limit(5){name,photos.limit(2){name,%20picture}},posts.limit(5){message,created_time},picture.width(700).height(700),name&access_token=' + $scope.accesstoken
         }).then(function successCallback(response) {
             $scope.albums = response.data.albums.data;
             $scope.posts = response.data.posts.data;
+            $scope.pic = response.data.picture.data;
+            $scope.name = response.data.name;
             $location.path('/detail');
         }, function errorCallback(response) {
             alert("error");
