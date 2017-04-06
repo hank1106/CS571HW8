@@ -1,11 +1,11 @@
 var app = angular.module('myApp', ['ngRoute','ngAnimate']);
 app.controller('myCtrl', function($scope,$http,$location) {
-    accesstoken = 'EAAFgkMau1f8BAD02HfQNS9t7E6qp6Mw7WYrplAapbqZCrJ7xFSxpZAtpSahbTbXWxYCcUoohPmISw1diiDZBaaPZCQbxXgcSNLNbersPBBYMsZCmB0HhFz196psfZBKWMDXmGw1Kj7mtqrtiN2hXWW0HZBScPZBXpfkZD'
+    $scope.accesstoken = 'EAAFgkMau1f8BAD02HfQNS9t7E6qp6Mw7WYrplAapbqZCrJ7xFSxpZAtpSahbTbXWxYCcUoohPmISw1diiDZBaaPZCQbxXgcSNLNbersPBBYMsZCmB0HhFz196psfZBKWMDXmGw1Kj7mtqrtiN2hXWW0HZBScPZBXpfkZD'
     $scope.search = function(type) {
         $location.path('/progressBar');
         $http({
         	method: 'GET',
-        	url: 'https://graph.facebook.com/v2.8/search?q='+$scope.input+'&type='+type+'&fields=id,name,picture.width(700).height(700)&access_token=' + accesstoken
+        	url: 'https://graph.facebook.com/v2.8/search?q='+$scope.input+'&type='+type+'&fields=id,name,picture.width(700).height(700)&access_token=' + $scope.accesstoken
         }).then(function successCallback(response) {
             $scope.pagenum = 0;
         	$scope.jsondata = response.data.data;
@@ -47,7 +47,16 @@ app.controller('myCtrl', function($scope,$http,$location) {
             alert("error");
         });
     };
-    $scope.todetail = function() {
-        $location.path('/detail');
+    $scope.todetail = function(id) {
+        $http({
+            method: 'GET',
+            url: 'https://graph.facebook.com/v2.8/'+id+'?fields=%20albums.limit(5){name,photos.limit(2){name,%20picture}},posts.limit(5){message,created_time}&access_token=' + $scope.accesstoken
+        }).then(function successCallback(response) {
+            $scope.albums = response.data.albums.data;
+            $scope.posts = response.data.posts.data;
+            $location.path('/detail');
+        }, function errorCallback(response) {
+            alert("error");
+        });
     };
 });
