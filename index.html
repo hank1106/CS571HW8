@@ -24,21 +24,21 @@
       <div class="input-group">
         <input type="text" class="form-control" ng-model="input" style="width:400px;" placeholder="type something...">
           <div class="input-group-btn">
-            <button type="button btn-primary" class="btn btn-info blue-button" ng-click="search('user')">
+            <button type="button btn-primary" class="btn btn-info blue-button" ng-click="search('notsure')">
               <i class="glyphicon glyphicon-search"></i>
             </button>
           </div>
       </div>
-      <button name="clear" type="submit" class="btn btn-default clearbtn">Clear</button>
+      <button name="clear" type="submit" class="btn btn-default clearbtn" ng-click="clearbutton()">Clear</button>
     </form>
   </nav>
     <ul class="nav nav-pills nav-justified" style="text-align: center; width: 100%">
-      <li class="active"><a data-toggle="tab" ng-href="#users" ng-click="search('user')">Users</a></li>
-      <li><a data-toggle="tab" ng-href="#pages" ng-click="search('page')">Pages</a></li>
-      <li><a data-toggle="tab" ng-href="#events" ng-click="search('event')">Events</a></li>
-      <li><a data-toggle="tab" ng-href="#places" ng-click="search('place')">Places</a></li>
-      <li><a data-toggle="tab" ng-href="#groups" ng-click="search('group')">Groups</a></li>
-      <li><a data-toggle="tab" ng-href="#">Favorites</a></li>
+      <li class="active"><a class="innera" data-toggle="tab" ng-href="#users" ng-click="search('user')">Users</a></li>
+      <li><a class="innera" data-toggle="tab" ng-href="#pages" ng-click="search('page')">Pages</a></li>
+      <li><a class="innera" data-toggle="tab" ng-href="#events" ng-click="search('event')">Events</a></li>
+      <li><a class="innera" data-toggle="tab" ng-href="#places" ng-click="search('place')">Places</a></li>
+      <li><a class="innera" data-toggle="tab" ng-href="#groups" ng-click="search('group')">Groups</a></li>
+      <li><a class="innera" data-toggle="tab" ng-href="#">Favorites</a></li>
     </ul> 
   <div ng-view></div>
 </div>

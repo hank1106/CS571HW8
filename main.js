@@ -2,8 +2,28 @@ var app = angular.module('myApp', ['ngRoute','ngAnimate']);
 app.controller('myCtrl', function($scope,$http,$location) {
     $scope.accesstoken = 'EAAFgkMau1f8BAD02HfQNS9t7E6qp6Mw7WYrplAapbqZCrJ7xFSxpZAtpSahbTbXWxYCcUoohPmISw1diiDZBaaPZCQbxXgcSNLNbersPBBYMsZCmB0HhFz196psfZBKWMDXmGw1Kj7mtqrtiN2hXWW0HZBScPZBXpfkZD'
     $scope.currurl ='';
+    $scope.currtab ='';
     $scope.search = function(type) {
-        $location.path('/progressBar');
+        if($scope.input!==undefined)
+        {
+            $location.path('/progressBar');
+        }
+        else
+        {
+            alert('Empty input');
+        }
+        if(type ==='notsure')
+        {
+            if($scope.currtab==='')
+            {
+                $scope.currtab='user';
+            }
+            type = $scope.currtab;
+        }
+        else
+        {
+            $scope.currtab = type;
+        }
         $http({
         	method: 'GET',
         	url: 'https://graph.facebook.com/v2.8/search?q='+$scope.input+'&type='+type+'&fields=id,name,picture.width(700).height(700)&access_token=' + $scope.accesstoken
@@ -14,7 +34,10 @@ app.controller('myCtrl', function($scope,$http,$location) {
         	$scope.paging = response.data.paging.next;
             $scope.pagingprev = undefined;
             $scope.currurl = 'https://graph.facebook.com/v2.8/search?q='+$scope.input+'&type='+type+'&fields=id,name,picture.width(700).height(700)&access_token=' + $scope.accesstoken;
-        	$location.path('/tableResult');
+        	if($scope.input!==undefined)
+            {
+                $location.path('/tableResult');
+            }
         }, function errorCallback(response) {
         	alert("error");
         });
@@ -85,5 +108,7 @@ app.controller('myCtrl', function($scope,$http,$location) {
         }, function errorCallback(response) {
             alert("error");
         });
+    };
+    $scope.clearbutton = function() {
     };
 });
