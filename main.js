@@ -41,6 +41,7 @@ app.controller('myCtrl', function($scope,$http,$location) {
             method: 'GET',
             url: $scope.pagingprev
         }).then(function successCallback(response) {
+            $scope.pagenum--;
             $scope.jsondata = response.data.data;
             $scope.currurl = $scope.pagingprev;
             $scope.pagingprev = response.data.paging.previous;
@@ -64,11 +65,15 @@ app.controller('myCtrl', function($scope,$http,$location) {
         });
     };
     $scope.todetail = function(id) {
+        $location.path('/detail');
         $http({
             method: 'GET',
             url: 'https://graph.facebook.com/v2.8/'+id+'?fields=%20albums.limit(5){name,photos.limit(2){name,%20picture}},posts.limit(5){message,created_time},picture.width(700).height(700),name&access_token=' + $scope.accesstoken
         }).then(function successCallback(response) {
-            $location.path('/detail');
+            $scope.albums = undefined;
+            $scope.posts = undefined;
+            $scope.pic = undefined;
+            $scope.name = undefined;
             $scope.albums = response.data.albums.data;
             $scope.posts = response.data.posts.data;
             $scope.pic = response.data.picture.data;
