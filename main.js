@@ -66,6 +66,8 @@ app.controller('myCtrl', function($scope,$http,$location) {
     };
     $scope.todetail = function(id) {
         $location.path('/detail');
+        $scope.leftloaded = false;
+        $scope.rightloaded = false;
         $http({
             method: 'GET',
             url: 'https://graph.facebook.com/v2.8/'+id+'?fields=%20albums.limit(5){name,photos.limit(2){name,%20picture}},posts.limit(5){message,created_time},picture.width(700).height(700),name&access_token=' + $scope.accesstoken
@@ -74,6 +76,8 @@ app.controller('myCtrl', function($scope,$http,$location) {
             $scope.posts = undefined;
             $scope.pic = undefined;
             $scope.name = undefined;
+            $scope.leftloaded = true;
+            $scope.rightloaded = true;
             $scope.albums = response.data.albums.data;
             $scope.posts = response.data.posts.data;
             $scope.pic = response.data.picture.data;
