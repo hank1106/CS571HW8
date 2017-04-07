@@ -28,8 +28,8 @@ app.controller('myCtrl', function($scope,$http,$location) {
             $scope.pagenum++;
             $scope.jsondata = response.data.data;
             $scope.pagingprev = response.data.paging.previous;
-            $scope.paging = response.data.paging.next;
             $scope.currurl = $scope.paging;
+            $scope.paging = response.data.paging.next;
             $location.path('/tableResult');
         }, function errorCallback(response) {
             alert("error");
@@ -42,9 +42,9 @@ app.controller('myCtrl', function($scope,$http,$location) {
             url: $scope.pagingprev
         }).then(function successCallback(response) {
             $scope.jsondata = response.data.data;
+            $scope.currurl = $scope.pagingprev;
             $scope.pagingprev = response.data.paging.previous;
             $scope.paging = response.data.paging.next;
-            $scope.currurl = $scope.pagingprev;
             $location.path('/tableResult');
         }, function errorCallback(response) {
             alert("error");
