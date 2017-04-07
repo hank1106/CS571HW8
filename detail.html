@@ -1,4 +1,10 @@
-<div class="container">
+  <br>
+  <div class="container" style="padding-left: 28px;">
+  	<button class="btn btn-default" ng-click="back()">
+    	<span class="glyphicon glyphicon-chevron-left"></span> Back
+  	</button>
+  </div>
+  <div class="container">
 	<br>
 	<div class="panel-group col-sm-6">
 		<div class="panel panel-default">
@@ -6,6 +12,9 @@
 	        	<h4 class="panel-title">
 	          		<a data-toggle="collapse">albums</a>
 	        	</h4>
+	      	</div>
+	      	<div class="errormessagebox" ng-show="albums===undefined">
+	      		<span>No data found.</span>
 	      	</div>
 	  		<div class="panel-group" style="padding-left:5px; padding-right: 5px; margin-top: 12px;">
 	    		<div class="panel panel-default" ng-repeat="x in albums">
@@ -30,6 +39,9 @@
 	        	<h4 class="panel-title">
 	          		<a data-toggle="collapse">posts</a>
 	        	</h4>
+	      	</div>
+	      	<div class="errormessagebox" ng-show="posts===undefined">
+	      		<span>No data found.</span>
 	      	</div>
 	  		<div class="panel-group" style="padding-left:5px; padding-right: 5px; margin-top: 12px;">
 	    		<div class="panel panel-default" ng-repeat="x in posts">

@@ -107,3 +107,17 @@
     padding-left:20px;
     height: 40px;
 }
+.errormessagebox
+{
+  background-color: #FCF8E3;
+  color:#A79470;
+  height:40px;
+  width:95%;
+  margin:0 auto;
+  margin-top:20px;
+}
+.errormessagebox span {
+  position: relative;
+  top:23%;
+  margin-left:12px;
+}
