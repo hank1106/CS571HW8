@@ -24,23 +24,61 @@ app.controller('myCtrl', function($scope,$http,$location) {
         {
             $scope.currtab = type;
         }
-        $http({
-        	method: 'GET',
-        	url: 'https://graph.facebook.com/v2.8/search?q='+$scope.input+'&type='+type+'&fields=id,name,picture.width(700).height(700)&access_token=' + $scope.accesstoken
-        }).then(function successCallback(response) {
-            $scope.pagenum = 0;
-        	$scope.jsondata = response.data.data;
-            $scope.paging = undefined;
-        	$scope.paging = response.data.paging.next;
-            $scope.pagingprev = undefined;
-            $scope.currurl = 'https://graph.facebook.com/v2.8/search?q='+$scope.input+'&type='+type+'&fields=id,name,picture.width(700).height(700)&access_token=' + $scope.accesstoken;
-        	if($scope.input!==undefined)
-            {
-                $location.path('/tableResult');
-            }
-        }, function errorCallback(response) {
-        	alert("error");
-        });
+        if($scope.currtab!=='place')
+        {
+            $http({
+                method: 'GET',
+                url: 'https://graph.facebook.com/v2.8/search?q='+$scope.input+'&type='+type+'&fields=id,name,picture.width(700).height(700)&access_token=' + $scope.accesstoken
+            }).then(function successCallback(response) {
+                $scope.pagenum = 0;
+                $scope.jsondata = response.data.data;
+                $scope.paging = undefined;
+                $scope.paging = response.data.paging.next;
+                $scope.pagingprev = undefined;
+                $scope.currurl = 'https://graph.facebook.com/v2.8/search?q='+$scope.input+'&type='+type+'&fields=id,name,picture.width(700).height(700)&access_token=' + $scope.accesstoken;
+                if($scope.input!==undefined)
+                {
+                    $location.path('/tableResult');
+                }
+            }, function errorCallback(response) {
+                alert("error");
+            });
+        }
+        else
+        {
+            $location.path('/progressBar');
+            navigator.geolocation.getCurrentPosition(success, error, options);
+                var options = {
+                enableHighAccuracy: true,
+                timeout: 5000,
+                maximumAge: 0
+            };
+
+            function success(pos) {
+                var crd = pos.coords;
+                $http({
+                    method: 'GET',
+                    url: 'https://graph.facebook.com/v2.8/search?q='+$scope.input+'&type=place&fields=id,name,picture.width(700).height(700)&center='+crd.latitude+','+crd.longitude+'&access_token=' + $scope.accesstoken
+                }).then(function successCallback(response) {
+                    $scope.pagenum = 0;
+                    $scope.jsondata = response.data.data;
+                    $scope.paging = undefined;
+                    $scope.paging = response.data.paging.next;
+                    $scope.pagingprev = undefined;
+                    $scope.currurl = 'https://graph.facebook.com/v2.8/search?q='+$scope.input+'&type='+type+'&fields=id,name,picture.width(700).height(700)&access_token=' + $scope.accesstoken;
+                    if($scope.input!==undefined)
+                    {
+                        $location.path('/tableResult');
+                    }
+                }, function errorCallback(response) {
+                    alert("error");
+                });
+            };
+
+            function error(err) {
+                console.warn(`ERROR(${err.code}): ${err.message}`);
+            };
+        }
     };
     $scope.nextpage = function() {
         $location.path('/progressBar');
