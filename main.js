@@ -110,5 +110,7 @@ app.controller('myCtrl', function($scope,$http,$location) {
         });
     };
     $scope.clearbutton = function() {
+        $location.path('/');
+        location.reload();
     };
 });
