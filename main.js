@@ -3,12 +3,29 @@ app.controller('myCtrl', function($scope,$http,$location) {
     $scope.accesstoken = 'EAAFgkMau1f8BAD02HfQNS9t7E6qp6Mw7WYrplAapbqZCrJ7xFSxpZAtpSahbTbXWxYCcUoohPmISw1diiDZBaaPZCQbxXgcSNLNbersPBBYMsZCmB0HhFz196psfZBKWMDXmGw1Kj7mtqrtiN2hXWW0HZBScPZBXpfkZD'
     $scope.currurl ='';
     $scope.currtab ='';
+    window.fbAsyncInit = function() {
+        FB.init({
+            appId      : '387649901614591',
+            xfbml      : true,
+            version    : 'v2.8'
+        });
+        FB.AppEvents.logPageView();
+    };
+    (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }
+    (document, 'script', 'facebook-jssdk'));
+
     $scope.search = function(type) {
         if($scope.input!==undefined)
         {
             $location.path('/progressBar');
         }
-        else
+        else if(type==='notsure')
         {
             alert('Empty input');
         }
@@ -42,6 +59,8 @@ app.controller('myCtrl', function($scope,$http,$location) {
                 }
             }, function errorCallback(response) {
                 alert("error");
+                $location.path('/');
+                location.reload();
             });
         }
         else
@@ -72,6 +91,77 @@ app.controller('myCtrl', function($scope,$http,$location) {
                     }
                 }, function errorCallback(response) {
                     alert("error");
+                    $location.path('/');
+                    location.reload();
+                });
+            };
+
+            function error(err) {
+                console.warn('ERROR(${err.code}): ${err.message}');
+            };
+        }
+    };
+
+     $scope.tabsearch = function(type) {
+        if($scope.input===undefined)
+        {
+            $location.path('/');
+            location.reload();
+            return;
+        }
+        $scope.currtab = type;
+        if($scope.currtab!=='place')
+        {
+            $http({
+                method: 'GET',
+                url: 'https://graph.facebook.com/v2.8/search?q='+$scope.input+'&type='+type+'&fields=id,name,picture.width(700).height(700)&access_token=' + $scope.accesstoken
+            }).then(function successCallback(response) {
+                $scope.pagenum = 0;
+                $scope.jsondata = response.data.data;
+                $scope.paging = undefined;
+                $scope.paging = response.data.paging.next;
+                $scope.pagingprev = undefined;
+                $scope.currurl = 'https://graph.facebook.com/v2.8/search?q='+$scope.input+'&type='+type+'&fields=id,name,picture.width(700).height(700)&access_token=' + $scope.accesstoken;
+                if($scope.input!==undefined)
+                {
+                    $location.path('/tableResult');
+                }
+            }, function errorCallback(response) {
+                alert("error");
+                $location.path('/');
+                location.reload();
+            });
+        }
+        else
+        {
+                $location.path('/progressBar');
+                navigator.geolocation.getCurrentPosition(success, error, options);
+                var options = {
+                    enableHighAccuracy: true,
+                    timeout: 5000,
+                    maximumAge: 0
+                };
+
+            function success(pos) {
+                var crd = pos.coords;
+                $http({
+                    method: 'GET',
+                    url: 'https://graph.facebook.com/v2.8/search?q='+$scope.input+'&type=place&fields=id,name,picture.width(700).height(700)&center='+crd.latitude+','+crd.longitude+'&access_token=' + $scope.accesstoken
+                }).then(function successCallback(response) {
+                    $scope.pagenum = 0;
+                    $scope.jsondata = response.data.data;
+                    $scope.paging = undefined;
+                    $scope.paging = response.data.paging.next;
+                    $scope.pagingprev = undefined;
+                    $scope.currurl = 'https://graph.facebook.com/v2.8/search?q='+$scope.input+'&type='+type+'&fields=id,name,picture.width(700).height(700)&access_token=' + $scope.accesstoken;
+                    if($scope.input!==undefined)
+                    {
+                        $location.path('/tableResult');
+                    }
+                }, function errorCallback(response) {
+                    alert("error");
+                    $location.path('/');
+                    location.reload();
                 });
             };
 
@@ -80,6 +170,9 @@ app.controller('myCtrl', function($scope,$http,$location) {
             };
         }
     };
+
+
+
     $scope.nextpage = function() {
         $location.path('/progressBar');
         $http({
@@ -123,6 +216,7 @@ app.controller('myCtrl', function($scope,$http,$location) {
             $location.path('/tableResult');
         }, function errorCallback(response) {
             alert("error");
+
         });
     };
     $scope.todetail = function(id) {
@@ -147,6 +241,23 @@ app.controller('myCtrl', function($scope,$http,$location) {
             alert("error");
         });
     };
+
+    $scope.toshare = function(name,pic) {
+        FB.ui({
+            app_id: '387649901614591',
+            method: 'feed',
+            link: 'https://developers.facebook.com/docs/dialogs/',
+            picture: pic,
+            name: name,
+            caption: 'FB SEARCH FROM USC CSCI571'
+        }, function(response){
+                if (response && !response.error_message)
+                    Success
+                else
+                    Failed
+        });
+    };
+
     $scope.clearbutton = function() {
         $location.path('/');
         location.reload();
