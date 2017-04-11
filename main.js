@@ -3,6 +3,7 @@ app.controller('myCtrl', function($scope,$http,$location) {
     $scope.accesstoken = 'EAAFgkMau1f8BAD02HfQNS9t7E6qp6Mw7WYrplAapbqZCrJ7xFSxpZAtpSahbTbXWxYCcUoohPmISw1diiDZBaaPZCQbxXgcSNLNbersPBBYMsZCmB0HhFz196psfZBKWMDXmGw1Kj7mtqrtiN2hXWW0HZBScPZBXpfkZD'
     $scope.currurl ='';
     $scope.currtab ='';
+    var localStorage = window.localStorage;
     window.fbAsyncInit = function() {
         FB.init({
             appId      : '387649901614591',
@@ -153,7 +154,7 @@ app.controller('myCtrl', function($scope,$http,$location) {
                     $scope.paging = undefined;
                     $scope.paging = response.data.paging.next;
                     $scope.pagingprev = undefined;
-                    $scope.currurl = 'https://graph.facebook.com/v2.8/search?q='+$scope.input+'&type='+type+'&fields=id,name,picture.width(700).height(700)&access_token=' + $scope.accesstoken;
+                    $scope.currurl = 'https://graph.facebook.com/v2.8/search?q='+$scope.input+'&type=place&fields=id,name,picture.width(700).height(700)&center='+crd.latitude+','+crd.longitude+'&access_token=' + $scope.accesstoken;
                     if($scope.input!==undefined)
                     {
                         $location.path('/tableResult');
@@ -252,14 +253,36 @@ app.controller('myCtrl', function($scope,$http,$location) {
             caption: 'FB SEARCH FROM USC CSCI571'
         }, function(response){
                 if (response && !response.error_message)
-                    Success
+                    alert('Posted Successfully')
                 else
-                    Failed
+                    alert('Not Posted')
         });
+    };
+
+    $scope.light = function(id) {
+    	var lightup =false;
+    	var lightup = localStorage.hasOwnProperty(id);
+    	return lightup;
+    };
+
+    $scope.fav = function(name,picurl,id) {
+    	if(localStorage.hasOwnProperty(id))
+    	{
+    		localStorage.removeItem(id);
+    	}
+    	else
+    	{
+    		var favitem = {'itemid':id, 'itemname':name, 'itempicurl':picurl};
+    		localStorage.setItem(id, JSON.stringify(favitem));
+    	}
     };
 
     $scope.clearbutton = function() {
         $location.path('/');
         location.reload();
     };
+
+    String.prototype.replaceAt=function(index, replacement) {
+        return this.substr(0, index) + replacement+ this.substr(index + replacement.length);
+    }
 });

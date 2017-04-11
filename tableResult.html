@@ -13,7 +13,12 @@
     		  <td>{{pagenum*25 + $index + 1}}</td>
       		<td><img src="{{x.picture.data.url}}" class="img-rounded" alt="Cinque Terre" width="30" height="30"></td>
       		<td>{{ x.name }}</td>
-      		<td><button class="detailbutton" ng-click="todetail(x.id)"><i class="glyphicon glyphicon-star-empty"></i></button></td>
+      		<td>
+            <button class="detailbutton" ng-click="fav(x.name,x.picture.data.url,x.id)">
+              <i class="glyphicon glyphicon-star-empty" ng-show='!light(x.id)'></i>
+              <i class="glyphicon glyphicon-star" style="color:gold;" ng-show='light(x.id)'></i>
+            </button>
+          </td>
       		<td><button class="detailbutton" ng-click="todetail(x.id)"><i class="glyphicon glyphicon-chevron-right"></i></button></td>
     	</tr>
     </tbody>

@@ -65,7 +65,7 @@
 	        				</div>
 	        				<div class="desc">
 	        					{{name}}<br>
-	        					<div style="color:grey;">{{x.created_time}}</div>
+	        					<div style="color:grey;">{{x.created_time.substring(0,19).replaceAt(10,' ')}}</div>
 	        				</div>
 	        			</section>
 	          			<li class="list-group-item noborder">{{x.message}}</li>

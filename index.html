@@ -20,16 +20,16 @@
     <div class="navbar-header col-md-3">
       <a class="navbar-brand">FB Search</a>
     </div>
-    <form class="navbar-form col-md-4">
+    <form class="navbar-form col-md-5">
       <div class="input-group">
-        <input type="text" class="form-control" ng-model="input" style="width:400px;" placeholder="type something...">
+        <input type="text" class="form-control" ng-model="input" style="width:300px" placeholder="type something...">
           <div class="input-group-btn">
-            <button type="button btn-primary" class="btn btn-info blue-button" ng-click="search('notsure')">
+            <button type="button btn-primary" class="btn btn-info blue-button first" ng-click="search('notsure')">
               <i class="glyphicon glyphicon-search"></i>
             </button>
+            <button name="clear" type="submit" class="btn btn-default clearbtn second" ng-click="clearbutton()">Clear</button>
           </div>
       </div>
-      <button name="clear" type="submit" class="btn btn-default clearbtn" ng-click="clearbutton()">Clear</button>
     </form>
   </nav>
     <ul class="nav nav-pills nav-justified navigationtab">
@@ -37,7 +37,7 @@
       <li><a class="innera" data-toggle="tab" ng-href="#progressBar" ng-click="tabsearch('page')">Pages</a></li>
       <li><a class="innera" data-toggle="tab" ng-href="#progressBar" ng-click="tabsearch('event')">Events</a></li>
       <li><a class="innera" data-toggle="tab" ng-href="#progressBar" ng-click="tabsearch('place')">Places</a></li>
-      <li><a class="innera" data-toggle="tab" ng-href="#progressBars" ng-click="tabsearch('group')">Groups</a></li>
+      <li><a class="innera" data-toggle="tab" ng-href="#progressBar" ng-click="tabsearch('group')">Groups</a></li>
       <li><a class="innera" data-toggle="tab" ng-href="#">Favorites</a></li>
     </ul> 
   <div ng-view></div>
