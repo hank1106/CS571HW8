@@ -238,6 +238,32 @@ app.controller('myCtrl', function($scope,$http,$location) {
             $scope.posts = response.data.posts.data;
             $scope.pic = response.data.picture.data;
             $scope.name = response.data.name;
+            $scope.detailid = response.data.id;
+        }, function errorCallback(response) {
+            alert("error");
+        });
+    };
+
+    $scope.tofavdetail = function(id) {
+        $location.path('/favdetail');
+        $scope.leftloaded = false;
+        $scope.rightloaded = false;
+        $http({
+            method: 'GET',
+            url: 'https://graph.facebook.com/v2.8/'+id+'?fields=%20albums.limit(5){name,photos.limit(2){name,%20picture}},posts.limit(5){message,created_time},picture.width(700).height(700),name&access_token=' + $scope.accesstoken
+        }).then(function successCallback(response) {
+            $scope.albums = undefined;
+            $scope.posts = undefined;
+            $scope.pic = undefined;
+            $scope.name = undefined;
+            $scope.leftloaded = true;
+            $scope.rightloaded = true;
+            $scope.albums = response.data.albums.data;
+            $scope.posts = response.data.posts.data;
+            $scope.pic = response.data.picture.data;
+            $scope.name = response.data.name;
+            $scope.detailid = response.data.id;
+            alert($scope.detailid);
         }, function errorCallback(response) {
             alert("error");
         });
@@ -269,17 +295,35 @@ app.controller('myCtrl', function($scope,$http,$location) {
     	if(localStorage.hasOwnProperty(id))
     	{
     		localStorage.removeItem(id);
+            getfavlist();
     	}
     	else
     	{
-    		var favitem = {'itemid':id, 'itemname':name, 'itempicurl':picurl};
+    		var favitem = {'itemid':id, 'itemname':name, 'itempicurl':picurl,'type':$scope.currtab};
     		localStorage.setItem(id, JSON.stringify(favitem));
+            getfavlist();
     	}
+        $scope.favlist = localStorage;
+    };
+
+    $scope.getfavlist = function() {
+        alert('calling');
+        $scope.favList = [];
+        for(var i = 0; i <localStorage.length; i++)
+        {
+            var favitem = JSON.parse(localStorage.getItem(localStorage.key(i)));
+            $scope.favList.push(favitem);
+        }
     };
 
     $scope.clearbutton = function() {
         $location.path('/');
         location.reload();
+    };
+
+     $scope.deletefavitem = function(id) {
+        localStorage.removeItem(id);
+        getfavlist();
     };
 
     String.prototype.replaceAt=function(index, replacement) {
