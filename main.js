@@ -234,11 +234,11 @@ app.controller('myCtrl', function($scope,$http,$location) {
             $scope.name = undefined;
             $scope.leftloaded = true;
             $scope.rightloaded = true;
-            $scope.albums = response.data.albums.data;
-            $scope.posts = response.data.posts.data;
+            $scope.detailid = response.data.id;
             $scope.pic = response.data.picture.data;
             $scope.name = response.data.name;
-            $scope.detailid = response.data.id;
+            $scope.albums = response.data.albums.data;
+            $scope.posts = response.data.posts.data;
         }, function errorCallback(response) {
             alert("error");
         });
@@ -263,7 +263,6 @@ app.controller('myCtrl', function($scope,$http,$location) {
             $scope.pic = response.data.picture.data;
             $scope.name = response.data.name;
             $scope.detailid = response.data.id;
-            alert($scope.detailid);
         }, function errorCallback(response) {
             alert("error");
         });
@@ -294,20 +293,17 @@ app.controller('myCtrl', function($scope,$http,$location) {
     $scope.fav = function(name,picurl,id) {
     	if(localStorage.hasOwnProperty(id))
     	{
-    		localStorage.removeItem(id);
-            getfavlist();
+            localStorage.removeItem(id);
     	}
     	else
     	{
     		var favitem = {'itemid':id, 'itemname':name, 'itempicurl':picurl,'type':$scope.currtab};
     		localStorage.setItem(id, JSON.stringify(favitem));
-            getfavlist();
     	}
         $scope.favlist = localStorage;
     };
 
     $scope.getfavlist = function() {
-        alert('calling');
         $scope.favList = [];
         for(var i = 0; i <localStorage.length; i++)
         {
@@ -323,7 +319,6 @@ app.controller('myCtrl', function($scope,$http,$location) {
 
      $scope.deletefavitem = function(id) {
         localStorage.removeItem(id);
-        getfavlist();
     };
 
     String.prototype.replaceAt=function(index, replacement) {
